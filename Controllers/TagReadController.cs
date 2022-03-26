@@ -16,6 +16,8 @@ namespace LarpTag.Controllers
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
+
+            _logger.Log(LogLevel.Information, "Controller constructor...");
         }
 
         public int playerhealth = 100;
@@ -43,11 +45,17 @@ namespace LarpTag.Controllers
 
         if (httpResponseMessage.IsSuccessStatusCode)
         {
-            // using var contentStream =
-            //     await httpResponseMessage.Content.ReadAsStreamAsync();
+            var content = await httpResponseMessage.Content.ReadAsStringAsync();
 
-            // GitHubBranches = await JsonSerializer.DeserializeAsync
-            //     <IEnumerable<GitHubBranch>>(contentStream);
+            _logger.Log(LogLevel.Information, content);
+        }
+        else
+        {
+            _logger.Log(
+                LogLevel.Error,
+                $"httpclient request failed ({httpResponseMessage.StatusCode}): {httpResponseMessage.ReasonPhrase}",
+                this.Request.Query
+                );
         }
 
             //return Ok();
