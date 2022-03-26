@@ -17,10 +17,10 @@ namespace LarpTag.Controllers
             _logger = logger;
             _httpClientFactory = httpClientFactory;
 
-            _logger.Log(LogLevel.Information, "Controller constructor...");
+            // _logger.Log(LogLevel.Information, "Controller constructor...");
         }
 
-        public int playerhealth = 100;
+        public static int playerhealth = 100;
 
         [HttpGet]
         public async Task OnGet(string mac, string tag)
